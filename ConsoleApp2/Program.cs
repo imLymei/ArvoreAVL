@@ -71,7 +71,7 @@ namespace ArvoreBinaria
                                 if (subNo.fb < 0)
                                 {
                                     Console.WriteLine("Proximo fb mesmo sinal");
-                                    raiz.rodarArvoreDireta(ref pai, ref subNo);
+                                    raiz.rodarArvoreDireita(ref pai, ref subNo);
                                 }
                                 Console.ReadKey();
                             }
@@ -130,7 +130,7 @@ namespace ArvoreBinaria
                 subno.sad = pai.sae;
                 pai.sae = subno;
             }
-            public void rodarArvoreDireta(ref No pai, ref No subno)
+            public void rodarArvoreDireita(ref No pai, ref No subno)
             {
                 (pai.info, subno.info) = (subno.info, pai.info);
                 (pai.sad, subno.sad) = (subno.sad, pai.sad);
