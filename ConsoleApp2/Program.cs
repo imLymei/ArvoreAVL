@@ -36,6 +36,7 @@ namespace ArvoreBinaria
                     pai = temp;
                     while (temp != null)
                     {
+                        Console.WriteLine(temp.info);
                         subNo = temp;
                         if (n <= temp.info)
                         {
@@ -60,64 +61,44 @@ namespace ArvoreBinaria
                             }
                         }
 
-                        if (contador != 0)
+                        if (contador > 0)
                         {
-                            if (pai.fb < -1)
+                            // se fb for igual ou menor que -2
+                            if (subNo.fb == -2)
                             {
-                                Console.WriteLine($"fb de {pai.info} menor q -1 apos {subNo.info}");
-                                if (subNo.fb < 0)
-                                {
-                                    Console.WriteLine("Proximo fb negativo");
-                                    if (pai == raiz)
-                                    {
-                                        Console.WriteLine($"colocando {subNo.info} na raiz");
-                                        raiz = subNo;
-                                        Console.WriteLine($"direita de {subNo.info} igual a {pai.info}");
-                                        if (raiz.sad == null)
-                                        {
-                                            raiz.sad = pai;
-                                            pai.sae = null;
-                                        }
-                                        else
-                                        {
-                                            pai.sae = raiz.sad;
-                                            raiz.sad = pai;
-
-                                            raiz.fb += 1;
-                                            pai.fb += 1;
-                                        }
-                                    }
-                                }
-                                Console.ReadKey();
+                                
                             }
-                            else if (pai.fb > 1)
+                            else if (pai.fb == 2 && (Math.Abs(subNo.fb) != 2))
                             {
-                                Console.WriteLine($"fb de {pai.info} maior q 1 apos {subNo.info}");
+                                Console.WriteLine($"fb de {pai.info} igual a {pai.fb}");
+                                Console.WriteLine($"fb de {subNo.info} igual a {subNo.fb}");
+                                Console.WriteLine($"fb de {subNo.sad.info} igual a {subNo.sad.fb}");
                                 if (subNo.fb > 0)
                                 {
                                     Console.WriteLine("Proximo fb positivo");
-                                        if (pai == raiz)
-                                        {
-                                            Console.WriteLine($"colocando {subNo.info} na raiz");
-                                            raiz = subNo;
-                                            Console.WriteLine($"esquerda de {subNo.info} igual a {pai.info}");
-                                            if (raiz.sae == null)
-                                            {
-                                                raiz.sae = pai;
-                                                pai.sad = null;
-                                            }
-                                            else
-                                            {
-                                                pai.sad = raiz.sae;
-                                                raiz.sae = pai;
-                                                raiz.fb -= 1;
-                                                pai.fb -= 1;
-                                            }
-                                        }
+                                    raiz.rodarArvoreEsquerda(ref pai, ref subNo);
+                                        //if (pai == raiz)
+                                        //{
+                                        //    Console.WriteLine($"colocando {subNo.info} na raiz");
+                                        //    raiz = subNo;
+                                        //    Console.WriteLine($"esquerda de {subNo.info} igual a {pai.info}");
+                                        //    if (raiz.sae == null)
+                                        //    {
+                                        //        raiz.sae = pai;
+                                        //        pai.sad = null;
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        pai.sad = raiz.sae;
+                                        //        raiz.sae = pai;
+                                        //        raiz.fb -= 1;
+                                        //        pai.fb -= 1;
+                                        //    }
+                                        //}
                                 }
                                 Console.ReadKey();
                             }
-                            pai = subNo; 
+                            pai = subNo;
                         }
                         else contador++;
                     }
@@ -151,9 +132,15 @@ namespace ArvoreBinaria
 
                 return Math.Max(fbe, fbd);
             }
-            public void rodarArvore()
+            public void rodarArvoreEsquerda(ref No pai, ref No subno)
             {
+                (pai.info, subno.info) = (subno.info, pai.info);
+                (pai.sad, subno.sad) = (subno.sad, pai.sad);
+                (pai.sae, subno.sae) = (subno.sae, pai.sae);
+                (pai.fb, subno.fb) = (subno.fb, pai.fb);
 
+                subno.sad = pai.sae;
+                pai.sae = subno;
             }
             public void deletarNo(int n, ref No raiz)
             {
@@ -325,7 +312,7 @@ namespace ArvoreBinaria
             No raiz = null;
             int response = 0;
             //int[] arvoreInicial = { 15, 10, 20, 17, 16, 18, 21, 12, 11, 5, 8, 9 };
-            int[] arvoreInicial = { 15, 10, 20, 8, 11, 1};
+            int[] arvoreInicial = { 1, 2, 3};
             foreach (int i in arvoreInicial)
             {
                 No temp = new No();
