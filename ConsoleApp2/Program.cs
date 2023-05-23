@@ -36,7 +36,6 @@ namespace ArvoreBinaria
                     pai = temp;
                     while (temp != null)
                     {
-                        Console.WriteLine(temp.info);
                         subNo = temp;
                         if (n <= temp.info)
                         {
@@ -64,27 +63,23 @@ namespace ArvoreBinaria
                         if (contador > 0)
                         {
                             // se fb for igual ou menor que -2
-                            if (subNo.fb == -2 && (Math.Abs(subNo.fb) != 2))
+                            if (pai.fb == -2 && (Math.Abs(subNo.fb) != 2))
                             {
                                 Console.WriteLine($"fb de {pai.info} igual a {pai.fb}");
-                                Console.WriteLine($"fb de {subNo.info} igual a {subNo.fb}");
                                 if (subNo.fb < 0)
                                 {
-                                    Console.WriteLine("Proximo fb mesmo sinal");
+                                    Console.WriteLine("Rodnado para a direita");
                                     raiz.rodarArvoreDireita(ref pai, ref subNo);
                                 }
-                                Console.ReadKey();
                             }
                             else if (pai.fb == 2 && (Math.Abs(subNo.fb) != 2))
                             {
                                 Console.WriteLine($"fb de {pai.info} igual a {pai.fb}");
-                                Console.WriteLine($"fb de {subNo.info} igual a {subNo.fb}");
                                 if (subNo.fb > 0)
                                 {
-                                    Console.WriteLine("Proximo fb mesmo sinal");
+                                    Console.WriteLine("Rodando para a esquerda");
                                     raiz.rodarArvoreEsquerda(ref pai, ref subNo);
                                 }
-                                Console.ReadKey();
                             }
                             pai = subNo;
                         }
@@ -115,8 +110,6 @@ namespace ArvoreBinaria
                 if (this.sad != null) fbd = (this.sad).calcularFb() + 1;
 
                 this.fb = fbd - fbe;
-
-                Console.WriteLine($"{this.info}: fbe = {fbe} fbd = {fbd} fb = {this.fb}");
 
                 return Math.Max(fbe, fbd);
             }
@@ -310,11 +303,12 @@ namespace ArvoreBinaria
             No raiz = null;
             int response = 0;
             //int[] arvoreInicial = { 15, 10, 20, 17, 16, 18, 21, 12, 11, 5, 8, 9 };
-            int[] arvoreInicial = { 1, 2, 3, 4, 5};
+            int[] arvoreInicial = { 5, 4, 3, 2, 1 };
             foreach (int i in arvoreInicial)
             {
                 No temp = new No();
                 temp.adicionar(i, ref raiz);
+                Console.ReadKey();
             }
             while (response != 5)
             {
